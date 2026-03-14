@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FreshBasket – Fresh & Quality Groceries</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===== CSS VARIABLES (colors, fonts) ===== */
+    :root {
+      --green: #1a6b3c;
+      --green-light: #27a05a;
+      --yellow: #f5c518;
+      --white: #ffffff;
+      --off-white: #f8f5f0;
+      --dark: #1a1a1a;
+      --gray: #666;
+      --light-gray: #e8e8e8;
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    /* ===== RESET ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--dark); background: var(--white); }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 60px;
+      background: var(--white);
+      border-bottom: 1px solid var(--light-gray);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--green);
+      font-weight: 800;
+    }
+    .nav-logo span { color: var(--yellow); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--dark);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cart {
+      background: var(--green);
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .nav-cart:hover { background: var(--green-light); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--dark); border-radius: 2px; }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      background: linear-gradient(135deg, #e8f5ee 0%, #f8f5f0 60%, #fff9e6 100%);
+      padding: 80px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      min-height: 85vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(39,160,90,0.08) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      border-radius: 50%;
+    }
+    .hero-text { max-width: 560px; }
+    .hero-badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.15;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--green); }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--green);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 2px solid var(--green);
+      transition: all 0.2s;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .btn-secondary:hover { background: var(--green); color: var(--white); }
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-image-placeholder {
+      width: 420px; height: 420px;
+      background: linear-gradient(135deg, #27a05a22, #f5c51822);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      box-shadow: 0 20px 60px rgba(26,107,60,0.15);
+    }
+
+    /* ===== SECTION STYLES ===== */
+    section { padding: 80px 60px; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .section-subtitle {
+      color: var(--gray);
+      font-size: 1rem;
+      margin-bottom: 48px;
+    }
+    .section-header { text-align: center; }
+
+    /* ===== CATEGORIES ===== */
+    .categories { background: var(--off-white); }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 24px;
+    }
+    .cat-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      text-align: center;
+      padding: 24px 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .cat-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(26,107,60,0.15); }
+    .cat-icon { font-size: 3rem; margin-bottom: 12px; }
+    .cat-card h3 { font-size: 0.95rem; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+    .cat-card p { font-size: 0.8rem; color: var(--green); font-weight: 500; }
+    .cat-card a {
+      display: inline-block;
+      margin-top: 12px;
+      background: var(--green);
+      color: white;
+      padding: 7px 18px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .cat-card a:hover { background: var(--green-light); }
+
+    /* ===== PRODUCTS ===== */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      transition: all 0.3s;
+    }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+    .product-img {
+      height: 180px;
+      background: var(--off-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .product-info { padding: 16px; }
+    .product-info h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+    .product-price { color: var(--green); font-weight: 700; font-size: 1.05rem; margin-bottom: 12px; }
+    .add-to-cart {
+      width: 100%;
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .add-to-cart:hover { background: var(--green-light); }
+    .view-all { text-align: center; margin-top: 40px; }
+    .view-all a {
+      background: var(--green);
+      color: white;
+      padding: 14px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .view-all a:hover { background: var(--green-light); }
+
+    /* ===== BUNDLES ===== */
+    .bundles { background: var(--off-white); }
+    .bundle-tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .bundle-tab {
+      padding: 10px 24px;
+      border-radius: 50px;
+      border: 2px solid var(--light-gray);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      background: white;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+    .bundle-tab.active, .bundle-tab:hover {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+    .bundle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .bundle-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+    .bundle-card:hover { border-color: var(--green); transform: translateY(-4px); }
+    .bundle-card.featured { border-color: var(--yellow); }
+    .bundle-badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .bundle-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+    .bundle-items { margin-bottom: 20px; }
+    .bundle-items li {
+      font-size: 0.85rem;
+      color: var(--gray);
+      padding: 4px 0;
+      border-bottom: 1px solid var(--light-gray);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .bundle-items li::before { content: '✓'; color: var(--green); font-weight: 700; }
+    .bundle-price { font-size: 1.2rem; font-weight: 700; color: var(--green); margin-bottom: 16px; }
+    .order-btn {
+      width: 100%;
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: var(--font-body);
+    }
+    .order-btn:hover { background: var(--green-light); }
+
+    /* ===== WHY US ===== */
+    .why-us { background: var(--green); color: white; }
+    .why-us .section-title { color: white; }
+    .why-us .section-subtitle { color: rgba(255,255,255,0.7); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 32px;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.3s;
+    }
+    .feature-card:hover { background: rgba(255,255,255,0.18); transform: translateY(-4px); }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: white; }
+    .feature-card p { font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+    /* ===== FAQ ===== */
+    .faq { background: var(--off-white); }
+    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-item {
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .faq-question {
+      padding: 20px 24px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .faq-question:hover { background: #f8f5f0; }
+    .faq-question .arrow { transition: transform 0.3s; font-size: 1.2rem; color: var(--green); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s;
+      padding: 0 24px;
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 20px; }
+    .faq-item.open .arrow { transform: rotate(180deg); }
+
+    /* ===== CTA BANNER ===== */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+      color: white;
+      text-align: center;
+      padding: 80px 60px;
+    }
+    .cta-banner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      margin-bottom: 16px;
+    }
+    .cta-banner p { font-size: 1.1rem; opacity: 0.85; margin-bottom: 36px; }
+    .cta-btn {
+      background: var(--yellow);
+      color: var(--dark);
+      padding: 14px 40px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+    .cta-btn:hover { background: #e0b015; transform: translateY(-2px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.7);
+      padding: 60px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-logo { color: white; font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; margin-bottom: 16px; display: block; }
+    .footer-logo span { color: var(--yellow); }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; max-width: 260px; }
+    footer h4 { color: white; font-weight: 700; margin-bottom: 16px; font-size: 1rem; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a { font-size: 0.9rem; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p { font-size: 0.85rem; }
+    .payment-logos { display: flex; gap: 12px; align-items: center; }
+    .payment-badge {
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 6px 16px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 60px 20px; }
+      .hero { flex-direction: column; padding: 60px 20px; text-align: center; min-height: auto; }
+      .hero-buttons { justify-content: center; }
+      .hero-image-placeholder { width: 260px; height: 260px; font-size: 5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .cta-banner { padding: 60px 20px; }
+      footer { padding: 40px 20px; }
+    }
+
+    /* ===== FADE IN ANIMATION ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <!-- The navbar stays at the top when you scroll (position: sticky) -->
+  <nav>
+    <div class="nav-logo">Fresh<span>Basket</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#bundles">Bundles</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" class="nav-cart">🛒 ₦0.00</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <!-- Big welcome area with headline, description, and call-to-action buttons -->
+  <section class="hero" id="home">
+    <div class="hero-text fade-in">
+      <span class="hero-badge">🌿 Fresh & Healthy</span>
+      <h1>Fresh & Healthy <span>Foods Made</span> Simple</h1>
+      <p>Your trusted source for fresh, quality food — simple, fast, and affordable. Freshness you can taste, convenience you'll love.</p>
+      <div class="hero-buttons">
+        <a href="#shop" class="btn-primary">Shop Now</a>
+        <a href="#categories" class="btn-secondary">Browse Categories</a>
+      </div>
+    </div>
+    <div class="hero-image fade-in">
+      <div class="hero-image-placeholder">🥦</div>
+    </div>
+  </section>
+
+  <!-- ===== CATEGORIES SECTION ===== -->
+  <!-- Grid of product categories, each shown as a card -->
+  <section class="categories" id="categories">
+    <div class="section-header">
+      <h2 class="section-title">Shop by Category</h2>
+      <p class="section-subtitle">Find exactly what you need from our wide range of categories</p>
+    </div>
+    <div class="categories-grid">
+      <div class="cat-card fade-in">
+        <div class="cat-icon">🥬</div>
+        <h3>Fresh Produce</h3>
+        <p>Fresh Finds</p>
+        <a href="#shop">View Category</a>
+      </div>
+      <div class="cat-card fade-in">
+        <div class="cat-icon">📦</div>
+        <h3>Dry & Packaged Foods</h3>
+        <p>Fresh Finds</p>
+        <a href="#shop">View Category</a>
+      </div>
+      <div class="cat-card fade-in">
+        <div class="cat-icon">🍗</div>
+        <h3>Proteins</h3>
+        <p>Fresh Finds</p>
+        <a href="#shop">View Category</a>
+      </div>
+      <div class="cat-card fade-in">
+        <div class="cat-icon">🫙</div>
+        <h3>Oils & Spices</h3>
+        <p>Fresh Finds</p>
+        <a href="#shop">View Category</a>
+      </div>
+      <div class="cat-card fade-in">
+        <div class="cat-icon">🌾</div>
+        <h3>Tubers & Grains</h3>
+        <p>Fresh Finds</p>
+        <a href="#shop">View Category</a>
+      </div>
+      <div class="cat-card fade-in">
+        <div class="cat-icon">🍎</div>
+        <h3>Fruits & Vegetables</h3>
+        <p>Fresh Finds</p>
+        <a href="#shop">View Category</a>
+      </div>
+      <div class="cat-card fade-in">
+        <div class="cat-icon">🍚</div>
+        <h3>Staple Foods</h3>
+        <p>Fresh Finds</p>
+        <a href="#shop">View Category</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED PRODUCTS SECTION ===== -->
+  <!-- Product cards with name, price, and add to cart button -->
+  <section id="shop">
+    <div class="section-header">
+      <h2 class="section-title">Explore a Few Products</h2>
+      <p class="section-subtitle">A showcase of our restocked and newly stocked products</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card fade-in">
+        <div class="product-img">🍚</div>
+        <div class="product-info">
+          <h3>Rice (Short Grain)</h3>
+          <p class="product-price">₦1,700 – ₦65,000</p>
+          <button class="add-to-cart" onclick="addToCart('Rice (Short Grain)')">Select Options</button>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-img">🫙</div>
+        <div class="product-info">
+          <h3>Palm Oil – Local</h3>
+          <p class="product-price">₦2,900 – ₦71,000</p>
+          <button class="add-to-cart" onclick="addToCart('Palm Oil')">Select Options</button>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-img">🧂</div>
+        <div class="product-info">
+          <h3>Maggi Chicken Tablet</h3>
+          <p class="product-price">₦4,000</p>
+          <button class="add-to-cart" onclick="addToCart('Maggi Chicken Tablet')">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-img">🧂</div>
+        <div class="product-info">
+          <h3>Maggi Chicken Single 100 Cubes</h3>
+          <p class="product-price">₦1,900</p>
+          <button class="add-to-cart" onclick="addToCart('Maggi Chicken Single')">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-img">🌿</div>
+        <div class="product-info">
+          <h3>Maggi Star Seasoning Powder</h3>
+          <p class="product-price">₦1,800</p>
+          <button class="add-to-cart" onclick="addToCart('Maggi Star Seasoning')">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-img">🦐</div>
+        <div class="product-info">
+          <h3>Maggi Crayfish</h3>
+          <p class="product-price">₦4,300</p>
+          <button class="add-to-cart" onclick="addToCart('Maggi Crayfish')">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-img">🐄</div>
+        <div class="product-info">
+          <h3>Knorr Beef Seasoning Cubes (x50)</h3>
+          <p class="product-price">₦2,000</p>
+          <button class="add-to-cart" onclick="addToCart('Knorr Beef')">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-img">🍗</div>
+        <div class="product-info">
+          <h3>Knorr Chicken Seasoning Cubes (x50)</h3>
+          <p class="product-price">₦2,200</p>
+          <button class="add-to-cart" onclick="addToCart('Knorr Chicken')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="view-all fade-in">
+      <a href="#shop">SEE ALL PRODUCTS</a>
+    </div>
+  </section>
+
+  <!-- ===== BUNDLE PACKAGES ===== -->
+  <!-- Tabbed section — click a tab to switch between bundle types -->
+  <section class="bundles" id="bundles">
+    <div class="section-header">
+      <h2 class="section-title">Padi Bundles</h2>
+      <p class="section-subtitle">Pre-packed grocery bundles for every need and budget</p>
+    </div>
+    <div class="bundle-tabs">
+      <button class="bundle-tab active" onclick="showBundle('stew', this)">Stew Bundle</button>
+      <button class="bundle-tab" onclick="showBundle('soup', this)">Soup Bundle</button>
+      <button class="bundle-tab" onclick="showBundle('fitfam', this)">Fitfam Bundle</button>
+      <button class="bundle-tab" onclick="showBundle('breakfast', this)">Breakfast Bundle</button>
+    </div>
+
+    <!-- Stew Bundles (shown by default) -->
+    <div class="bundle-grid" id="stew">
+      <div class="bundle-card fade-in">
+        <span class="bundle-badge">Basic</span>
+        <h3>Basic Package</h3>
+        <ul class="bundle-items">
+          <li>1 paint tomatoes</li>
+          <li>Half paint Bawa</li>
+          <li>Half paint red atarodo</li>
+          <li>1 paint red onions</li>
+          <li>75ml Power oil</li>
+          <li>1kg chicken laps</li>
+        </ul>
+        <p class="bundle-price">₦24,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+      <div class="bundle-card featured fade-in">
+        <span class="bundle-badge">Standard</span>
+        <h3>Standard Package</h3>
+        <ul class="bundle-items">
+          <li>2 paint tomatoes</li>
+          <li>1 paint Bawa</li>
+          <li>1 paint red atarodo</li>
+          <li>1.4L Power oil</li>
+          <li>1 pack Knorr Chicken cubes</li>
+          <li>2kg chicken laps / 1kg Turkey</li>
+        </ul>
+        <p class="bundle-price">₦40,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+      <div class="bundle-card fade-in">
+        <span class="bundle-badge">Premium</span>
+        <h3>Premium Package</h3>
+        <ul class="bundle-items">
+          <li>2 paint tomatoes</li>
+          <li>1 paint Bawa</li>
+          <li>5L Kings oil</li>
+          <li>2kg Chicken / 1kg Turkey</li>
+          <li>1kg Assorted meat</li>
+          <li>Mr Chef salt (1kg)</li>
+        </ul>
+        <p class="bundle-price">₦64,500</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+    </div>
+
+    <!-- Soup Bundles -->
+    <div class="bundle-grid" id="soup" style="display:none">
+      <div class="bundle-card fade-in">
+        <span class="bundle-badge">Egusi</span>
+        <h3>Egusi Soup</h3>
+        <ul class="bundle-items">
+          <li>1 Derica egusi</li>
+          <li>1 bunch ugwu/pumpkin leaves</li>
+          <li>2L okomu banga oil</li>
+          <li>250g atarodo & bawa</li>
+          <li>Quarter paint crayfish</li>
+          <li>1kg assorted + ponmo</li>
+        </ul>
+        <p class="bundle-price">₦22,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+      <div class="bundle-card featured fade-in">
+        <span class="bundle-badge">Efo Riro</span>
+        <h3>Efo Riro Soup</h3>
+        <ul class="bundle-items">
+          <li>2 bunches Spinach/Tete</li>
+          <li>1 bunch soko</li>
+          <li>2L palm oil</li>
+          <li>500g atarodo & bawa</li>
+          <li>2 packs stockfish cutlets</li>
+          <li>1kg assorted + ponmo</li>
+        </ul>
+        <p class="bundle-price">₦25,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+      <div class="bundle-card fade-in">
+        <span class="bundle-badge">Okro/Ogbono</span>
+        <h3>Okro/Ogbono Soup</h3>
+        <ul class="bundle-items">
+          <li>Quarter paint Ogbono</li>
+          <li>1kg Okro (lady fingers)</li>
+          <li>2L palm oil</li>
+          <li>500g atarodo & bawa</li>
+          <li>2 packs stockfish cutlets</li>
+          <li>1kg assorted + ponmo</li>
+        </ul>
+        <p class="bundle-price">₦27,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+    </div>
+
+    <!-- Fitfam Bundles -->
+    <div class="bundle-grid" id="fitfam" style="display:none">
+      <div class="bundle-card fade-in">
+        <span class="bundle-badge">Basic</span>
+        <h3>Basic Package</h3>
+        <ul class="bundle-items">
+          <li>1kg chicken breast</li>
+          <li>1 paint sweet potatoes</li>
+          <li>1 hand plantain</li>
+          <li>2.5kg brown rice/ofada</li>
+          <li>2 cucumbers</li>
+          <li>1 pack cherry tomatoes</li>
+        </ul>
+        <p class="bundle-price">₦35,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+      <div class="bundle-card featured fade-in">
+        <span class="bundle-badge">Standard</span>
+        <h3>Standard Package</h3>
+        <ul class="bundle-items">
+          <li>2kg chicken breast/fish</li>
+          <li>2kg sweet potatoes</li>
+          <li>2.5kg brown rice/ofada</li>
+          <li>Cabbage + Veggies mix</li>
+          <li>4 cucumbers</li>
+          <li>Half dozen red apples</li>
+        </ul>
+        <p class="bundle-price">₦45,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+      <div class="bundle-card fade-in">
+        <span class="bundle-badge">Premium</span>
+        <h3>Premium Package</h3>
+        <ul class="bundle-items">
+          <li>3kg chicken breast/fish</li>
+          <li>2kg sweet potatoes</li>
+          <li>2 hands of plantain</li>
+          <li>Mixed salad pack</li>
+          <li>4 cucumbers + Veggies mix</li>
+          <li>1 dozen assorted fruits</li>
+        </ul>
+        <p class="bundle-price">₦60,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+    </div>
+
+    <!-- Breakfast Bundles -->
+    <div class="bundle-grid" id="breakfast" style="display:none">
+      <div class="bundle-card fade-in">
+        <span class="bundle-badge">Basic</span>
+        <h3>Basic Package</h3>
+        <ul class="bundle-items">
+          <li>1 family loaf bread</li>
+          <li>15 eggs</li>
+          <li>Peak full cream refill (350g)</li>
+          <li>Milo refill (400g)</li>
+          <li>Quaker Oats tin (420g)</li>
+          <li>Bananas + 4 oranges</li>
+        </ul>
+        <p class="bundle-price">₦20,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+      <div class="bundle-card featured fade-in">
+        <span class="bundle-badge">Standard</span>
+        <h3>Standard Package</h3>
+        <ul class="bundle-items">
+          <li>2 family loaf bread</li>
+          <li>15 eggs</li>
+          <li>Peak full cream refill (800g)</li>
+          <li>Milo refill (800g)</li>
+          <li>Kelloggs cornflakes (300g)</li>
+          <li>Bananas + oranges</li>
+        </ul>
+        <p class="bundle-price">₦25,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+      <div class="bundle-card fade-in">
+        <span class="bundle-badge">Premium</span>
+        <h3>Premium Package</h3>
+        <ul class="bundle-items">
+          <li>2 family loaf bread</li>
+          <li>30 eggs</li>
+          <li>Peak full cream refill (800g)</li>
+          <li>Milo refill (800g)</li>
+          <li>Kelloggs (450g) + Quaker Oats (420g)</li>
+          <li>Fruit box (bananas, apples, oranges)</li>
+        </ul>
+        <p class="bundle-price">₦40,000</p>
+        <button class="order-btn">ORDER THIS BUNDLE</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY CHOOSE US ===== -->
+  <!-- Benefits/features displayed as cards on a green background -->
+  <section class="why-us">
+    <div class="section-header">
+      <h2 class="section-title">What Makes Us Different</h2>
+      <p class="section-subtitle">The freshness we deliver, every single time</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <div class="feature-icon">🌿</div>
+        <h3>Fresh Stock</h3>
+        <p>We restock regularly to ensure you always get farm-fresh produce and quality items whenever you shop.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon">🚚</div>
+        <h3>Fast Delivery</h3>
+        <p>Your groceries are delivered quickly and safely. If there's any delay, we'll keep you updated every step of the way.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon">✅</div>
+        <h3>Trusted Quality</h3>
+        <p>Every item is carefully sourced from trusted suppliers, so you can shop with confidence and peace of mind.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon">📱</div>
+        <h3>Easy Shopping</h3>
+        <p>Browse, select, and order your groceries from the comfort of your home. Shopping has never been this simple.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ SECTION ===== -->
+  <!-- Accordion — clicking a question toggles the answer open/closed -->
+  <section class="faq" id="contact">
+    <div class="section-header">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Here are answers to questions you may have in mind</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          Are your products fresh? <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">Absolutely! We work with trusted local suppliers and ensure all groceries are stored and delivered under the best conditions.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          What payment methods do you accept? <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">We accept Paystack, bank transfers, and debit/credit cards. All transactions are secure and protected.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          How long does delivery take? <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">Orders are usually delivered within 24–48 hours. For perishable items, we prioritize same-day or next-day delivery.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          Do you charge for delivery? <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">Delivery fees depend on your location. The exact cost will be displayed at checkout before you confirm your order.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          Can I schedule my delivery? <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">Yes, you can choose your preferred delivery date and time slot at checkout. We'll do our best to accommodate your schedule.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          Do you offer bulk purchase discounts? <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">Yes! Bulk buyers like families, restaurants, or caterers can enjoy special discounts. Contact us for details.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BANNER ===== -->
+  <!-- Final call-to-action section before footer -->
+  <div class="cta-banner">
+    <h2>A Healthy Life Begins with Fresh Choices</h2>
+    <p>Explore our wide range of groceries today and bring health, taste, and convenience to your kitchen.</p>
+    <a href="#shop" class="cta-btn">VISIT OUR STORE</a>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo">Fresh<span>Basket</span></span>
+        <p>Shop fresh, quality foods from the comfort of your home. Freshness delivered to your door.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <ul class="footer-links">
+          <li><a href="#home">Home Page</a></li>
+          <li><a href="#shop">Shop Page</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#">My Account</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Brand</h4>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="#">Reviews</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Socials</h4>
+        <ul class="footer-links">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>All Rights Reserved 2025, FreshBasket.</p>
+      <div class="payment-logos">
+        <span class="payment-badge">Paystack</span>
+        <span class="payment-badge">Bank Transfer</span>
+        <span class="payment-badge">Debit Card</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // --- BUNDLE TABS ---
+    // Shows the correct bundle grid when a tab button is clicked
+    function showBundle(type, btn) {
+      // Hide all bundle grids first
+      ['stew', 'soup', 'fitfam', 'breakfast'].forEach(id => {
+        document.getElementById(id).style.display = 'none';
+      });
+      // Show the one that matches the clicked tab
+      document.getElementById(type).style.display = 'grid';
+
+      // Remove "active" class from all tabs, then add to the clicked one
+      document.querySelectorAll('.bundle-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // --- FAQ ACCORDION ---
+    // Opens or closes an FAQ answer when the question is clicked
+    function toggleFAQ(el) {
+      const item = el.parentElement;
+      // Close all other open FAQs
+      document.querySelectorAll('.faq-item').forEach(i => {
+        if (i !== item) i.classList.remove('open');
+      });
+      // Toggle this one
+      item.classList.toggle('open');
+    }
+
+    // --- ADD TO CART ---
+    // Shows a simple alert when a product is added
+    function addToCart(name) {
+      alert(name + ' added to cart! ✅');
+    }
+
+    // --- MOBILE HAMBURGER MENU ---
+    // Shows/hides nav links on small screens
+    function toggleMenu() {
+      const links = document.querySelector('.nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.display = 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'absolute';
+        links.style.top = '60px';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.background = 'white';
+        links.style.padding = '20px';
+        links.style.boxShadow = '0 8px 24px rgba(0,0,0,0.1)';
+        links.style.zIndex = '999';
+      }
+    }
+
+    // --- SCROLL FADE IN ANIMATION ---
+    // Elements with class "fade-in" smoothly appear as you scroll down
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
